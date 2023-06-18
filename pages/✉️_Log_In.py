@@ -11,27 +11,33 @@ def check_email(string):
         return True
     return False
 
-# Perform SQL query on the Google Sheet
-# Uses st.cache_data to only rerun when the query changes or after 10 min.
-#@st.cache_data(ttl=600)
-def run_query(query):
-    rows = conn.execute(query, headers=1)
-    rows = rows.fetchall()
-    return rows
-
-# Set up page
-st.title('Log In')
-
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"],
-    scopes=[
-        "https://www.googleapis.com/auth/spreadsheets",
-    ],
-)
-conn = connect(credentials=credentials)
+    scopes=["https://www.googleapis.com/auth/spreadsheets",],)
+
+connection = connect(":memory:", adapter_kwargs={
+            "gsheetsapi" : { 
+            "service_account_info" : {
+                "type" : st.secrets["gcp_service_account"]["type"],
+                "project_id" : st.secrets["gcp_service_account"]["project_id"],
+                "private_key_id" : st.secrets["gcp_service_account"]["private_key_id"],
+                "private_key" : st.secrets["gcp_service_account"]["private_key"],
+                "client_email" : st.secrets["gcp_service_account"]["client_email"],
+                "client_id" : st.secrets["gcp_service_account"]["client_id"],
+                "auth_uri" : st.secrets["gcp_service_account"]["auth_uri"],
+                "token_uri" : st.secrets["gcp_service_account"]["token_uri"],
+                "auth_provider_x509_cert_url" : st.secrets["gcp_service_account"]["auth_provider_x509_cert_url"],
+                "client_x509_cert_url" : st.secrets["gcp_service_account"]["client_x509_cert_url"],
+                }
+            },
+        })
+
+cursor = connection.cursor()
 sheet_url = st.secrets["private_gsheets_url"]
 
+# Set up page
+st.title('Log In')
 st.write('Inserisci qui i tuoi dati per accedere alla tua area personale')
 
 ID = st.text_input('ID', '')
@@ -39,7 +45,7 @@ email = st.text_input('E-Mail', '')
 
 if st.button('Log In'):
     if check_email(email):
-        rows = run_query(f'SELECT * FROM "{sheet_url}"')
+        rows = cursor.execute(f'SELECT * FROM "{sheet_url}"')
         IDs = [x[0] for x in rows]
         emails = [x[4] for x in rows]
         if ID in IDs:

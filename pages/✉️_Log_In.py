@@ -1,7 +1,7 @@
 import re 
 import streamlit as st
 from google.oauth2 import service_account
-from gsheetsdb import connect
+from shillelagh.backends.apsw.db import connect
 
 def check_email(string):
     # Regular expression for validating an email

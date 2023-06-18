@@ -46,6 +46,7 @@ email = st.text_input('E-Mail', '')
 if st.button('Log In'):
     if check_email(email):
         rows = cursor.execute(f'SELECT * FROM "{sheet_url}"')
+        rows = rows.fetchall()
         IDs = [x[0] for x in rows]
         emails = [x[4] for x in rows]
         if ID in IDs:

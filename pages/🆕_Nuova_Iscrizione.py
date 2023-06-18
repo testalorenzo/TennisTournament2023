@@ -1,6 +1,7 @@
 import streamlit as st
 from google.oauth2 import service_account
 from shillelagh.backends.apsw.db import connect
+import datetime
 
 def create_ID(n):
     if n < 10:
@@ -44,7 +45,7 @@ name = st.text_input('Nome')
 surname = st.text_input('Cognome')
 email = st.text_input('E-Mail')
 level = st.selectbox('Livello', ['Principiante', 'Intermedio', 'Avanzato'])
-birth = st.date_input('Data di nascita')
+birth = st.date_input('Data di nascita', min_value=datetime.date(1950,1,1))
 phone = st.text_input('Numero di telefono')
 
 

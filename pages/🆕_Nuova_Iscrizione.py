@@ -72,6 +72,5 @@ else:
         client = mt.MailtrapClient(token= st.secrets["private_token"])
         client.send(text_to_send)
 
-        st.success('Iscrizione effettuata con successo')
+        st.success("Iscrizione effettuata con successo. Riceverai una mail di conferma con il tuo codice identificativo all'indirizzo che hai specificato!")
         st.balloons()
-

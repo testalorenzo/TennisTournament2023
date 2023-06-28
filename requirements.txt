@@ -1,4 +1,4 @@
-gsheetsdb==0.1.13.1
+mailtrap==2.0.1
 protobuf==4.23.3
 shillelagh==1.2.4
 streamlit==1.23.1

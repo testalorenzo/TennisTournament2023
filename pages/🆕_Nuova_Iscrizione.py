@@ -2,6 +2,7 @@ import streamlit as st
 from google.oauth2 import service_account
 from shillelagh.backends.apsw.db import connect
 import datetime
+import mailtrap as mt
 
 def create_ID(n):
     if n < 10:
@@ -35,7 +36,6 @@ connection = connect(":memory:", adapter_kwargs={
         })
 
 cursor = connection.cursor()
-
 sheet_url = st.secrets["private_gsheets_url"]
 
 # Set up page
@@ -47,7 +47,6 @@ email = st.text_input('E-Mail')
 level = st.selectbox('Livello', ['Principiante', 'Intermedio', 'Avanzato'])
 birth = st.date_input('Data di nascita', min_value=datetime.date(1950,1,1))
 phone = st.text_input('Numero di telefono')
-
 
 query = f'SELECT * FROM "{sheet_url}"'
 rows = cursor.execute(query)
@@ -63,5 +62,16 @@ else:
         query = f'INSERT INTO "{sheet_url}" (ID, Name, Surname, Birth, Email, Level, Phone, NextMatch) VALUES ("{ID}", "{name}", "{surname}", "{birth}", "{email}", "{level}", "{phone}", "{next_match}")'
         cursor.execute(query)
         connection.commit()
+
+        text_to_send = mt.Mail(sender=mt.Address(email="no-reply@tdrtennis.it", name="no-reply"),
+                               to=[mt.Address(email= email)],
+                               subject="Iscrizione TDR Tennis",
+                               text="Ciao " + name + ",\n\nGrazie per esserti iscritto a TDR Tennis!\n\n Questo è il tuo codice identificativo per accedere alla tua area personale: " + ID + "\n\nA presto,\n\nTDR Tennis",
+                               category="Welcome")
+
+        client = mt.MailtrapClient(token= st.secrets["private_token"])
+        client.send(text_to_send)
+
         st.success('Iscrizione effettuata con successo')
         st.balloons()
+

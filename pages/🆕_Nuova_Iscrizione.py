@@ -95,7 +95,8 @@ with st.form("my_form"):
         else:
             ID = create_ID(n_subscriptions)
             next_match = 'TBD'
-            query = f'INSERT INTO "{sheet_url}" (ID, Name, Surname, Birth, Email, Level, Phone, NextMatch) VALUES ("{ID}", "{name}", "{surname}", "{birth}", "{email}", "{level}", "{phone}", "{next_match}")'
+            payment = 'Pending'
+            query = f'INSERT INTO "{sheet_url}" (ID, Name, Surname, Birth, Email, Level, Phone, NextMatch, PaymentStatus) VALUES ("{ID}", "{name}", "{surname}", "{birth}", "{email}", "{level}", "{phone}", "{next_match}", "{payment}")'
             cursor.execute(query)
             connection.commit()
 

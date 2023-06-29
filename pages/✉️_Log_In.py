@@ -2,6 +2,7 @@ import re
 import streamlit as st
 from google.oauth2 import service_account
 from shillelagh.backends.apsw.db import connect
+from PIL import Image
 
 def check_email(string):
     # Regular expression for validating an email
@@ -10,6 +11,15 @@ def check_email(string):
     if re.fullmatch(regex, string):
         return True
     return False
+
+payment_text = """
+                Per pagare la tua quota di iscrizione di 20 Euro, hai due opzioni:
+                - Bonifico bancario: IBAN IT BLA BLA BLA. Ricordati di specificare la causale 'BLA BLA' 
+                - PayPal: BLA BLA BLA 
+                
+                Una volta ricevuto il tuo pagamento, lo processeremo entro 24 ore e ti invieremo una email di conferma. Per qualsiasi informazione, contattaci all'indirizzo e-mail hello@tdrtennis.it"""
+
+image = Image.open('./pages/IMG-20201128-WA0008.jpg')
 
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
@@ -38,29 +48,40 @@ sheet_url = st.secrets["private_gsheets_url"]
 
 # Set up page
 st.title('Log In')
+st.image(image)
 st.write('Inserisci qui i tuoi dati per accedere alla tua area personale')
 
-ID = st.text_input('ID', '')
-email = st.text_input('E-Mail', '')
+with st.form("my_form"):
+    ID = st.text_input('ID', '')
+    email = st.text_input('E-Mail', '')
+    submitted = st.form_submit_button("Log in!")
 
-if st.button('Log In'):
-    if check_email(email):
-        rows = cursor.execute(f'SELECT * FROM "{sheet_url}"')
-        rows = rows.fetchall()
-        IDs = [x[0] for x in rows]
-        emails = [x[4] for x in rows]
-        if ID in IDs:
-            index = IDs.index(ID)
-        if email != emails[index]:
-            st.error("L'e-mail che hai inserito non combacia con quella che hai usato in fase di registrazione")
+    if submitted:
+        if check_email(email):
+            rows = cursor.execute(f'SELECT * FROM "{sheet_url}"')
+            rows = rows.fetchall()
+            IDs = [x[0] for x in rows]
+            emails = [x[4] for x in rows]
+            if ID in IDs:
+                index = IDs.index(ID)
+            else:
+                st.error("L'ID che hai inserito non combacia con quello che hai usato in fase di registrazione")
+            if email != emails[index]:
+                st.error("L'e-mail che hai inserito non combacia con quella che hai usato in fase di registrazione")
+            else:
+                st.write(f"ID: {ID}")
+                st.write(f"Nome: {rows[index][1]}")
+                st.write(f"Cognome: {rows[index][2]}")
+                st.write(f"Data di nascita: {rows[index][3]}")
+                st.write(f"E-mail: {email}")
+                st.write(f"Livello: {rows[index][5]}")
+                st.write(f"Telefono: {int(rows[index][6])}")
+                st.write(f"Prossima partita: {rows[index][7]}")
+                st.write(f"Stato pagamento: {rows[index][8]}")
+                with st.expander("Hai sbagliato ad inserire i tuoi dati?"):
+                    st.write("Contattaci a questo indirizzo: hello@tdrtennis.it. Ti risponderemo entro qualche ora!")
+                if rows[index][8] != 'Paid':
+                    with st.expander("Come effettuare il pagamento?"):
+                        st.write(payment_text)
         else:
-            st.write(f"ID: {ID}")
-            st.write(f"Nome: {rows[index][1]}")
-            st.write(f"Cognome: {rows[index][2]}")
-            st.write(f"Data di nascita: {rows[index][3]}")
-            st.write(f"E-mail: {email}")
-            st.write(f"Livello: {rows[index][5]}")
-            st.write(f"Telefono: {int(rows[index][6])}")
-            st.write(f"Prossima partita: {rows[index][7]}")
-    else:
-        st.error('Email non valida')
+            st.error('Email non valida')

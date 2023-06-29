@@ -3,6 +3,7 @@ from google.oauth2 import service_account
 from shillelagh.backends.apsw.db import connect
 import datetime
 import mailtrap as mt
+from PIL import Image
 
 def create_ID(n):
     if n < 10:
@@ -12,6 +13,34 @@ def create_ID(n):
     else:
         string = 'T' + str(n)[0] + 'D' + str(n)[1] + 'R' + str(n)[2]
     return string
+
+privacy_text = """
+INFORMATIVA TRATTAMENTO DEI DATI PERSONALI
+(ART. 13 E 14 REG. UE 2016/679)
+
+Ai fini previsti dal Regolamento Ue n. 2016/679 relativo alla protezione delle persone fisiche con riguardo al trattamento dei dati personali, La informiamo che il trattamento dei dati personali da Lei forniti ed acquisiti da AVIS TORRE DE' ROVERI, saranno oggetto di trattamento nel rispetto della normativa prevista dal premesso Regolamento nel rispetto dei diritti ed obblighi conseguenti e che:
+
+a) FINALITA’ DEL TRATTAMENTO – il trattamento è finalizzato: 1) alla corretta iscrizione, partecipazione e gestione degli eventi sportivi da lei prescelti, comprese tutte le attività inerenti gli obblighi di sicurezza, ed alla successiva compilazione e pubblicazione (limitatamente a nome, cognome) delle relative classifiche; 2) utilizzo dei suoi dati personale di contatto (Nome, Cognome ed indirizzo email) per inviarle informazioni dell’evento.
+
+b) MODALITA’ DEL TRATTAMENTO DEI DATI PERSONALI – Il trattamento è realizzato attraverso operazioni, effettuate con o senza l’ausilio di strumenti elettronici e consiste nella raccolta, registrazione, organizzazione conservazione, consultazione, elaborazione, modificazione, selezione, estrazione, raffronto utilizzo interconnessione, blocco, comunicazione, cancellazione, e distruzione dei dati. Il trattamento è svolto dal titolare e dagli incaricati espressamente autorizzati dal titolare.
+
+c) CONFERIMENTO DEI DATI E RIFIUTO – Il conferimento dei dati personali comuni e sensibili è obbligatorio e necessario ai fini dello svolgimento delle attività di cui al punto a), n. 1 ed il rifiuto da parte dell’interessato di conferire i dati personali comporta l’impossibilità di adempiere all’attività di cui al punto a) n. 1 e 2.
+
+d) COMUNICAZIONE DEI DATI – I dati personali possono venire a conoscenza esclusivamente degli incaricati del trattamento e possono essere comunicati per le finalità di cui al punto a), n. 1, a collaboratori esterni e in generale a tutti i soggetti ai quali la comunicazione è necessaria per il corretto espletamento le finalità di cui al punto a), n. 1, tra cui collaboratori esterni e in generale a tutti i soggetti ai quali la comunicazione è necessaria per il corretto espletamento le finalità di cui al punto a). I dati personali non sono soggetti a diffusione tranne che per quel che riguarda nome e cognome che saranno contenuti nelle classifiche degli eventi sportivi cui partecipa l’interessato e che saranno pubblicati sul sito internet dell' evento e sulle pagine social di AVIS Torre de' Roveri.
+
+f) CONSERVAZIONE DEI DATI – I dati sono conservati per il periodo necessario all’espletamento dell’attività e comunque non superiore a dieci anni.
+
+g) TITOLARE DEL TRATTAMENTO – Il titolare del trattamento è AVIS TORRE DE' ROVERI. con sede in Via Papa Giovanni XXIII, 2, 24060 Torre de' Roveri (BG), avis.torrederoveri@gmail.com
+
+h) DIRITTI DELL’INTERESSATO – L’interessato ha diritto:
+- all’accesso, rettifica, cancellazione, limitazione e opposizione al trattamento dei dati;
+- ad ottenere senza impedimenti dai titolari del trattamento i dati in un formato strutturato di uso comune e leggibile da dispositivo automatico per trasmetterli ad un altro titolare del trattamento;
+- a revocare il consenso al trattamento, senza pregiudizio per la liceità del trattamento basata sul consenso acquisito prima della revoca;           •  il diritto di proporre reclamo ad una autorità di controllo (Garante per la protezione dei dati personali) o autorità giudiziaria.
+
+L’esercizio dei premessi diritti può essere esercitato mediante comunicazione scritta da inviare a mezzo pec all’indirizzo torrederoveri@pec.avisbergamo.it 
+"""
+
+image = Image.open('./pages/IMG-20201128-WA0004.jpg')
 
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
@@ -40,6 +69,7 @@ sheet_url = st.secrets["private_gsheets_url"]
 
 # Set up page
 st.title('Nuova Iscrizione')
+st.image(image)
 
 with st.form("my_form"):
     name = st.text_input('Nome')
@@ -48,6 +78,9 @@ with st.form("my_form"):
     level = st.selectbox('Livello', ['Principiante', 'Intermedio', 'Avanzato'])
     birth = st.date_input('Data di nascita', min_value=datetime.date(1950,1,1))
     phone = st.text_input('Numero di telefono')
+    agree = st.checkbox('Accetto le condizioni sulla privacy')
+    with st.expander("Condizioni sulla privacy"):
+        st.write(privacy_text)
 
     submitted = st.form_submit_button("Invia iscrizione!")
     if submitted:
@@ -57,6 +90,8 @@ with st.form("my_form"):
         n_subscriptions = len(emails)
         if email in emails:
             st.error('E-mail già presente nel database')
+        elif not agree:
+            st.error('Devi accettare le condizioni sulla privacy')
         else:
             ID = create_ID(n_subscriptions)
             next_match = 'TBD'

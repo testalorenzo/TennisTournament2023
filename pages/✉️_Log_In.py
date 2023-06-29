@@ -16,7 +16,7 @@ payment_text = """
                 Per pagare la tua quota di iscrizione di 20 Euro, hai due opzioni:
                 - Bonifico bancario: IBAN IT BLA BLA BLA. Ricordati di specificare la causale 'BLA BLA' 
                 - PayPal: BLA BLA BLA 
-                
+
                 Una volta ricevuto il tuo pagamento, lo processeremo entro 24 ore e ti invieremo una email di conferma. Per qualsiasi informazione, contattaci all'indirizzo e-mail hello@tdrtennis.it"""
 
 image = Image.open('./pages/IMG-20201128-WA0008.jpg')
@@ -49,7 +49,6 @@ sheet_url = st.secrets["private_gsheets_url"]
 # Set up page
 st.title('Log In')
 st.image(image)
-st.write('Inserisci qui i tuoi dati per accedere alla tua area personale')
 
 with st.form("my_form"):
     ID = st.text_input('ID', '')

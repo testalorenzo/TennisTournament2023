@@ -77,6 +77,7 @@ with st.form("my_form"):
                 st.write(f"Telefono: {int(rows[index][6])}")
                 st.write(f"Prossima partita: {rows[index][7]}")
                 st.write(f"Stato pagamento: {rows[index][8]}")
+                st.write(f"Date in cui sei disponibile a giocare: {rows[index][9]}")
                 with st.expander("Hai sbagliato ad inserire i tuoi dati?"):
                     st.write("Contattaci a questo indirizzo: hello@tdrtennis.it. Ti risponderemo entro qualche ora!")
                 if rows[index][8] != 'Paid':

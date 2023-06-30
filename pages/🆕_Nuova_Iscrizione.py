@@ -78,10 +78,10 @@ with st.form("my_form"):
     level = st.selectbox('Livello', ['Principiante', 'Intermedio', 'Avanzato'])
     birth = st.date_input('Data di nascita', min_value=datetime.date(1950,1,1))
     phone = st.text_input('Numero di telefono')
+    availability = st.multiselect('In quali date saresti disponibile per giocare?', ['01/09/2023', '02/09/2023', '03/09/2023', '04/09/2023'])
     agree = st.checkbox('Accetto le condizioni sulla privacy')
     with st.expander("Condizioni sulla privacy"):
         st.write(privacy_text)
-
     submitted = st.form_submit_button("Invia iscrizione!")
     if submitted:
         query = f'SELECT * FROM "{sheet_url}"'
@@ -96,7 +96,8 @@ with st.form("my_form"):
             ID = create_ID(n_subscriptions)
             next_match = 'TBD'
             payment = 'Pending'
-            query = f'INSERT INTO "{sheet_url}" (ID, Name, Surname, Birth, Email, Level, Phone, NextMatch, PaymentStatus) VALUES ("{ID}", "{name}", "{surname}", "{birth}", "{email}", "{level}", "{phone}", "{next_match}", "{payment}")'
+            availability = str(availability)
+            query = f'INSERT INTO "{sheet_url}" (ID, Name, Surname, Birth, Email, Level, Phone, NextMatch, PaymentStatus, Availability) VALUES ("{ID}", "{name}", "{surname}", "{birth}", "{email}", "{level}", "{phone}", "{next_match}", "{payment}", "{availability}")'
             cursor.execute(query)
             connection.commit()
 

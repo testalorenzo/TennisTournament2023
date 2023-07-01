@@ -4,6 +4,12 @@ from google.oauth2 import service_account
 from shillelagh.backends.apsw.db import connect
 from PIL import Image
 
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        </style>
+        """
+
 def check_email(string):
     # Regular expression for validating an email
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
@@ -47,6 +53,7 @@ cursor = connection.cursor()
 sheet_url = st.secrets["private_gsheets_url"]
 
 # Set up page
+st.markdown(hide_menu_style, unsafe_allow_html=True)
 st.title('Log In')
 st.image(image)
 

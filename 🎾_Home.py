@@ -1,6 +1,12 @@
 import streamlit as st
 from PIL import Image
 
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        </style>
+        """
+
 image = Image.open('IMG-20201128-WA0007.jpg')
 video_file = open('video_home.mp4', 'rb')
 video_bytes = video_file.read()
@@ -24,6 +30,7 @@ main_text = """
             """
 
 # Set up page
+st.markdown(hide_menu_style, unsafe_allow_html=True)
 st.title('2023 AVIS AIDO Tennis Tournament')
 st.video(video_bytes, start_time=0)
 

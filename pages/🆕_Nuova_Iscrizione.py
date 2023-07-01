@@ -5,6 +5,12 @@ import datetime
 import mailtrap as mt
 from PIL import Image
 
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        </style>
+        """
+
 def create_ID(n):
     if n < 10:
         string = 'T0D0R' + str(n)
@@ -68,6 +74,7 @@ cursor = connection.cursor()
 sheet_url = st.secrets["private_gsheets_url"]
 
 # Set up page
+st.markdown(hide_menu_style, unsafe_allow_html=True)
 st.title('Nuova Iscrizione')
 st.image(image)
 

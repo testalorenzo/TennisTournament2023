@@ -21,7 +21,7 @@ def check_email(string):
     return False
 
 payment_text = """
-                Per pagare la tua quota di iscrizione di 20 Euro, hai due opzioni:
+                Per pagare la tua quota di iscrizione di 15 Euro, hai due opzioni:
                 - Bonifico bancario: IBAN IT BLA BLA BLA. Ricordati di specificare la causale 'BLA BLA' 
                 - PayPal: BLA BLA BLA 
 

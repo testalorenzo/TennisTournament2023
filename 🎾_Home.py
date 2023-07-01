@@ -14,7 +14,7 @@ video_file = open('video_home.mp4', 'rb')
 video_bytes = video_file.read()
 
 main_text = """
-            Benvenuto nel sito del torneo di tennis 2023 AVIS AIDO!
+            Benvenuti nel sito del torneo di tennis 2023 AVIS AIDO!
 
             A Settembre 2023, presso il Centro Sportivo di Torre de' Roveri - FranVi Bar, verrà organizzato, insieme alle associazioni AVIS e AIDO locali, il secondo Torneo di Tennis AVIS-AIDO.
             

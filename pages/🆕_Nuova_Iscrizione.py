@@ -80,6 +80,8 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 st.title('Nuova Iscrizione')
 st.image(image)
 
+availability_list = [str(x) + "/09/2023" for x in range(1,18)]
+
 with st.form("my_form"):
     name = st.text_input('Nome')
     surname = st.text_input('Cognome')
@@ -87,7 +89,7 @@ with st.form("my_form"):
     level = st.selectbox('Livello', ['Principiante', 'Intermedio', 'Avanzato'])
     birth = st.date_input('Data di nascita', min_value=datetime.date(1950,1,1))
     phone = st.text_input('Numero di telefono')
-    availability = st.multiselect('In quali date saresti disponibile per giocare?', ['01/09/2023', '02/09/2023', '03/09/2023', '04/09/2023'])
+    availability = st.multiselect('In quali date saresti disponibile per giocare?', availability_list)
     agree = st.checkbox('Accetto le condizioni sulla privacy')
     with st.expander("Condizioni sulla privacy"):
         st.write(privacy_text)

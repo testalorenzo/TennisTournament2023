@@ -53,6 +53,7 @@ opening_text = """
                
                La quota di iscrizione -- che puoi pagare *dopo* aver effettuato l'iscrizione grazie alle informazioni che troverai nella tua Area Personale -- è di 15€ e comprende, oltre alla partecipazione al torneo, anche dei gadget e un buono da spendere presso il Centro Sportivo. 
                """
+
 image = Image.open('./pages/IMG-20201128-WA0004.jpg')
 
 # Create a connection object.
@@ -84,6 +85,7 @@ sheet_url = st.secrets["private_gsheets_url"]
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 st.title('Nuova Iscrizione')
 st.image(image)
+st.markdown(opening_text)
 
 availability_list = [str(x) + "/09/2023" for x in range(1,18)]
 

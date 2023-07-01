@@ -51,7 +51,7 @@ L’esercizio dei premessi diritti può essere esercitato mediante comunicazione
 opening_text = """
                Per procedere con l’iscrizione ti chiediamo di compilare le informazioni richieste di seguito per poter organizzare al meglio le giornate del torneo! 
                
-               La quota di iscrizione -- che puoi pagare *dopo* aver effettuato l'iscrizione grazie alle informazioni che troverai nella tua Area Personale -- è di 15€ e comprende, oltre alla partecipazione al torneo, anche dei gadget e un buono da spendere presso il Centro Sportivo. 
+               La quota di iscrizione - che puoi pagare *dopo* aver effettuato l'iscrizione grazie alle informazioni che troverai nella tua Area Personale - è di 15€ e comprende, oltre alla partecipazione al torneo, anche dei gadget e un buono da spendere presso il Centro Sportivo. 
                """
 
 image = Image.open('./pages/IMG-20201128-WA0004.jpg')

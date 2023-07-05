@@ -5,6 +5,8 @@ import datetime
 import mailtrap as mt
 from PIL import Image
 
+st.set_page_config(page_title="Nuova Iscrizione - TDRTennis 2023", page_icon="🎾")
+
 hide_menu_style = """
         <style>
         #MainMenu {visibility: hidden;}

@@ -4,6 +4,8 @@ from google.oauth2 import service_account
 from shillelagh.backends.apsw.db import connect
 from PIL import Image
 
+st.set_page_config(page_title="Log In - TDRTennis 2023", page_icon="🎾")
+
 hide_menu_style = """
         <style>
         #MainMenu {visibility: hidden;}

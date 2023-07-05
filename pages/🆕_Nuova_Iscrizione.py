@@ -118,7 +118,7 @@ with st.form("my_form"):
             next_match = 'TBD'
             payment = 'Pending'
             availability = str(availability)
-            query = f'INSERT INTO "{sheet_url}" (ID, Name, Surname, Birth, Email, Level, Phone, NextMatch, PaymentStatus, Availability) VALUES ("{ID}", "{name}", "{surname}", "{birth}", "{email}", "{level}", "{phone}", "{next_match}", "{payment}", "{availability}", "{fiscal_code}")'
+            query = f'INSERT INTO "{sheet_url}" (ID, Name, Surname, Birth, Email, Level, Phone, NextMatch, PaymentStatus, Availability, FiscalCode) VALUES ("{ID}", "{name}", "{surname}", "{birth}", "{email}", "{level}", "{phone}", "{next_match}", "{payment}", "{availability}", "{fiscal_code}")'
             cursor.execute(query)
             connection.commit()
 

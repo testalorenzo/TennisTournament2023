@@ -21,9 +21,9 @@ def check_email(string):
     return False
 
 payment_text = """
-                Per pagare la tua quota di iscrizione di 15 Euro, hai due opzioni:
-                - Bonifico bancario: IBAN IT BLA BLA BLA. Ricordati di specificare la causale 'BLA BLA' 
-                - PayPal: BLA BLA BLA 
+                Per pagare la tua quota di iscrizione, puoi inviarci un bonifico bancario rispettando le seguenti indicazioni:
+                - IBAN: IT46U0538752470000042475325
+                - Causale: Contributo a AVIS Torre de' Roveri per svolgimento torneo Tennis settembre 2023 
 
                 Una volta ricevuto il tuo pagamento, lo processeremo entro 24 ore e ti invieremo una email di conferma. Per qualsiasi informazione, contattaci all'indirizzo e-mail hello@tdrtennis.it"""
 
@@ -81,6 +81,7 @@ with st.form("my_form"):
                 st.write(f"Nome: {rows[index][1]}")
                 st.write(f"Cognome: {rows[index][2]}")
                 st.write(f"Data di nascita: {rows[index][3]}")
+                st.write(f"Codice fiscale: {rows[index][10]}")
                 st.write(f"E-mail: {email}")
                 st.write(f"Livello: {rows[index][5]}")
                 st.write(f"Telefono: {int(rows[index][6])}")
@@ -90,6 +91,8 @@ with st.form("my_form"):
                 with st.expander("Hai sbagliato ad inserire i tuoi dati?"):
                     st.write("Contattaci a questo indirizzo: hello@tdrtennis.it. Ti risponderemo entro qualche ora!")
                 if rows[index][8] != 'Paid':
+                    with st.expander("Quanto costa iscriversi?"):
+                        st.write("Per i cittadini e le cittadine residenti nel comune di Torre de' Roveri, la quota di iscrizione è di 15 Euro. Per coloro che non risiedono a Torre de' Roveri, la quota è di 20 Euro")
                     with st.expander("Come effettuare il pagamento?"):
                         st.write(payment_text)
         else:

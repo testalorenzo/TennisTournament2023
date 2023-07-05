@@ -95,6 +95,7 @@ with st.form("my_form"):
     email = st.text_input('E-Mail')
     level = st.selectbox('Livello', ['Principiante', 'Intermedio', 'Avanzato'])
     birth = st.date_input('Data di nascita', min_value=datetime.date(1950,1,1))
+    fiscal_code = st.text_input('Codice Fiscale')
     phone = st.text_input('Numero di telefono')
     availability = st.multiselect('In quali date saresti disponibile per giocare?', availability_list)
     agree = st.checkbox('Accetto le condizioni sulla privacy')
@@ -115,7 +116,7 @@ with st.form("my_form"):
             next_match = 'TBD'
             payment = 'Pending'
             availability = str(availability)
-            query = f'INSERT INTO "{sheet_url}" (ID, Name, Surname, Birth, Email, Level, Phone, NextMatch, PaymentStatus, Availability) VALUES ("{ID}", "{name}", "{surname}", "{birth}", "{email}", "{level}", "{phone}", "{next_match}", "{payment}", "{availability}")'
+            query = f'INSERT INTO "{sheet_url}" (ID, Name, Surname, Birth, Email, Level, Phone, NextMatch, PaymentStatus, Availability) VALUES ("{ID}", "{name}", "{surname}", "{birth}", "{email}", "{level}", "{phone}", "{next_match}", "{payment}", "{availability}", "{fiscal_code}")'
             cursor.execute(query)
             connection.commit()
 

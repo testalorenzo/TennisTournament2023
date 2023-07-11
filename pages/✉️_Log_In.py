@@ -30,7 +30,7 @@ payment_text = """
                 Una volta ricevuto il tuo pagamento, lo processeremo entro 24 ore e ti invieremo una email di conferma. Per qualsiasi informazione, contattaci all'indirizzo e-mail hello@tdrtennis.it"""
 
 image = Image.open('./pages/IMG-20201128-WA0008.jpg')
-image2 = Image.open('20230711_094921_0000.png')
+image2 = Image.open('./pages/20230711_094921_0000.png')
 
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(

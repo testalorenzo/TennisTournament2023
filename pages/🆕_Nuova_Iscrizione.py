@@ -57,7 +57,7 @@ opening_text = """
                """
 
 image = Image.open('./pages/IMG-20201128-WA0004.jpg')
-image2 = Image.open('20230711_094921_0000.png')
+image2 = Image.open('./pages/20230711_094921_0000.png')
 
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(

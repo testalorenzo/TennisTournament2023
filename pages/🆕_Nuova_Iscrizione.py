@@ -57,6 +57,7 @@ opening_text = """
                """
 
 image = Image.open('./pages/IMG-20201128-WA0004.jpg')
+image2 = Image.open('20230711_094921_0000.png')
 
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
@@ -134,4 +135,5 @@ with st.form("my_form"):
             st.success("Iscrizione effettuata con successo. Riceverai una mail di conferma con il tuo codice identificativo all'indirizzo che hai specificato!")
             st.balloons()
 
-st.sidebar.image(image, use_column_width=True)
+
+st.sidebar.image(image2, use_column_width=True)

@@ -11,7 +11,7 @@ hide_menu_style = """
         </style>
         """
 
-image = Image.open('/pages/20230711_094921_0000.png')
+image = Image.open('./pages/20230711_094921_0000.png')
 video_file = open('video_home.mp4', 'rb')
 video_bytes = video_file.read()
 

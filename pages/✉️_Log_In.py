@@ -99,3 +99,5 @@ with st.form("my_form"):
                         st.write(payment_text)
         else:
             st.error('Email non valida')
+
+st.sidebar.image(image, use_column_width=True)

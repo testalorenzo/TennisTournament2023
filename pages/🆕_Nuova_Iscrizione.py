@@ -133,3 +133,5 @@ with st.form("my_form"):
 
             st.success("Iscrizione effettuata con successo. Riceverai una mail di conferma con il tuo codice identificativo all'indirizzo che hai specificato!")
             st.balloons()
+
+st.sidebar.image(image, use_column_width=True)

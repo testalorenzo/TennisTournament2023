@@ -11,7 +11,7 @@ hide_menu_style = """
         </style>
         """
 
-image = Image.open('IMG-20201128-WA0007.jpg')
+image = Image.open('/pages/20230711_094921_0000.png')
 video_file = open('video_home.mp4', 'rb')
 video_bytes = video_file.read()
 
@@ -38,6 +38,6 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 st.title('2023 AVIS AIDO Tennis Tournament')
 st.video(video_bytes, start_time=0)
 
-#st.image(image)
-
 st.markdown(main_text)
+
+st.sidebar.image(image, use_column_width=True)

@@ -24,8 +24,6 @@ main_text = """
 
             Le partite si svolgeranno dal Lunedì al Venerdì a partire dalle ore 19, e il Sabato e la Domenica durante l’intera giornata.
 
-            Vi chiediamo gentilmente di iscrivervi a [questo link](https://tdrtennis.streamlit.app/Nuova_Iscrizione), selezionando i giorni in cui sarete disponibili per svolgere le partite.
-
             Una volta iscritti, riceverete presso la e-mail indicata il vostro ID personale, che vi servirà per rimanere aggiornati su tabellone e prossimi match! 🎾 
 
             Per essere ufficialmente iscritti vi servirà, oltre alla conferma della registrazione che riceverete via e-mail, anche la conferma di avvenuto pagamento (maggiori informazioni nell’Area Riservata, che trovate a [questo link](https://tdrtennis.streamlit.app/Log_In))

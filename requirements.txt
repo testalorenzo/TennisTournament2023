@@ -1,5 +1,8 @@
 mailtrap==2.0.1
-protobuf==4.23.3
+pandas==1.5.3
+Pillow==10.0.0
+protobuf==4.24.2
+pytz==2023.3
 shillelagh==1.2.4
 streamlit==1.23.1
 google-auth==2.22.0

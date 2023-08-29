@@ -106,8 +106,12 @@ if check_password():
         if st.button(raw_option[2] + ' ' + raw_option[3] + ' +'):
             cursor.execute(f'UPDATE "{games_url}" SET "Score2" = "Score2" + 15 WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
             connection.commit()
+            cursor.execute(f'UPDATE "{games_url}" SET "MatchStatus" = Playing WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
+            connection.commit()
         if st.button(raw_option[2] + ' ' + raw_option[3] + ' -'):
             cursor.execute(f'UPDATE "{games_url}" SET "Score2" = "Score2" - 15 WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
+            connection.commit()
+            cursor.execute(f'UPDATE "{games_url}" SET "MatchStatus" = Playing WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
             connection.commit()
 
     rows = cursor.execute(f'SELECT * FROM "{games_url}" WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')

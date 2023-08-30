@@ -275,6 +275,64 @@ if check_password():
         cursor.execute(f'UPDATE "{games_url}" SET "Score2" = {score2}, "Advantage1" = {advantage1}, "Advantage2" = {advantage2} WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
         connection.commit()
 
+    # 1-1 set (Tie break)
+    if set1 == 1 and set2 == 1:
+        if score1 == 15:
+            score1 = 0
+            tie1 += 1
+            cursor.execute(f'UPDATE "{games_url}" SET "Score1" = 0, "Tie1" = "Tie1" + 1 WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
+            connection.commit()
+        if score2 == 15:
+            score2 = 0
+            tie2 += 1
+            cursor.execute(f'UPDATE "{games_url}" SET "Score2" = 0, "Tie2" = "Tie2" + 1 WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
+            connection.commit()
+        if score1 == -15:
+            score1 = 0
+            tie1 -= 1
+            cursor.execute(f'UPDATE "{games_url}" SET "Score1" = 0, "Tie1" = "Tie1" - 1 WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
+            connection.commit()
+        if score2 == -15:
+            score2 = 0
+            tie2 -= 1
+            cursor.execute(f'UPDATE "{games_url}" SET "Score2" = 0, "Tie2" = "Tie2" - 1 WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
+            connection.commit()
+        if tie1 == 10 and tie2 < 8:
+            set1 += 1
+            game1 = 0
+            game2 = 0
+            tie1 = 0
+            tie2 = 0
+            cursor.execute(f'UPDATE "{games_url}" SET "Set1" = "Set1" + 1, "Game1" = 0, "Game2" = 0, "Tie1" = 0, "Tie2" = 0 WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
+            connection.commit()
+        if tie2 == 10 and tie1 < 8:
+            set2 += 1
+            game1 = 0
+            game2 = 0
+            tie1 = 0
+            tie2 = 0
+            cursor.execute(f'UPDATE "{games_url}" SET "Set2" = "Set2" + 1, "Game1" = 0, "Game2" = 0, "Tie1" = 0, "Tie2" = 0 WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
+            connection.commit()
+        if tie1 > 10 and tie1 > tie2 + 1:
+            set1 += 1
+            game1 = 0
+            game2 = 0
+            tie1 = 0
+            tie2 = 0
+            cursor.execute(f'UPDATE "{games_url}" SET "Set1" = "Set1" + 1, "Game1" = 0, "Game2" = 0, "Tie1" = 0, "Tie2" = 0 WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
+            connection.commit()
+        if tie2 > 10 and tie2 > tie1 + 1:
+            set2 += 1
+            game1 = 0
+            game2 = 0
+            tie1 = 0
+            tie2 = 0
+            cursor.execute(f'UPDATE "{games_url}" SET "Set2" = "Set2" + 1, "Game1" = 0, "Game2" = 0, "Tie1" = 0, "Tie2" = 0 WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
+            connection.commit()
+
+    if set1 == 2 or set2 == 2:
+        cursor.execute(f'UPDATE "{games_url}" SET "MatchStatus" = "Ended" WHERE "ID1" = "{credentials[0]}" AND "ID2" = "{credentials[1]}"')
+        connection.commit()
 
     st.write(f'Punteggio: {score1} - {score2}')
     st.write(f'Vantaggio: {advantage1} - {advantage2}')

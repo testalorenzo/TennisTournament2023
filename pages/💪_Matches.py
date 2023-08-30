@@ -47,7 +47,7 @@ tz = pytz.timezone('Europe/Berlin')
 today = datetime.datetime.now(tz).date()
 rows = cursor.execute(f'SELECT * FROM "{games_url}"')
 rows = rows.fetchall()
-matches = [row[0:14] for row in rows if row[3].date() < datetime.timedelta(days = 5) + today]
+matches = [row[0:14] for row in rows if row[3].date() < datetime.timedelta(days = 3) + today]
 
 names = []
 for match in matches:
